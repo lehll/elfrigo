@@ -1,18 +1,11 @@
 
 #include <OneWire.h> //for Thermister
-//#include <Wire.h>       //lybraries neede for display
 #include <SPI.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
 #include <LiquidCrystal.h>
 
  
  //initailizes display
-#define OLED_RESET 4
-//Adafruit_SSD1306 display(OLED_RESET);
-
 LiquidCrystal display(8,9,4,5,6,7);
-
 
 //--------------------------------------- ---------------------
  float vPow = 5.0; //voltmeter variables 
@@ -32,8 +25,8 @@ float U0Lim = 11.4;
 
 //Variables
 //const int U1=1; //to modify with the good input
-OneWire  ds(10);  // on pin 10 (a 4.7K resistor is necessary)
-const int U0pin = 0;
+OneWire  ds(2);  // on pin 2 (a 4.7K resistor is necessary)
+const int U0pin = 1;
 const int Tpin = 8;
 const int compres = 7; //... output
 const int pinPlus = 4;
@@ -48,7 +41,7 @@ int Plus =0, Less=0;
 //-------FUNCTIONS--------------
 //------------TO READ THE VOLTAGE----------
 float readVolt (int pin, float r1, float r2) {
-  float v = (analogRead(0) * vPow) / 1024.0;
+  float v = (analogRead(pin) * vPow) / 1024.0;
   float v2 = v / (r2 / (r1 + r2)); 
   return v2;
 }
@@ -212,7 +205,6 @@ void setup() {
    display.begin(SSD1306_SWITCHCAPVCC, 0x3C); // initializes display gives it address, adafruit logo 
    display.display();
    delay(2000);
-
    // Clear the buffer.
    //display.clearDisplay();
 }
