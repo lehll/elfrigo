@@ -28,7 +28,7 @@ float U0Lim = 11.4;
 OneWire  ds(2);  // on pin 2 (a 4.7K resistor is necessary)
 const int U0pin = 1;
 const int Tpin = 8;
-const int compres = 7; //... output
+const int compres = 3; //... output
 const int pinPlus = 4;
 const int pinLess = 5;
 const int pinBuzz = 2;
