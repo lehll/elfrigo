@@ -232,6 +232,8 @@ void setup() {
 
 //--------------------------------LOOP------------------------------
 void loop() {
+    Serial.print(" ###### Into Loop ###### ");
+
 
   Plus = digitalRead(pinPlus);
   Less = digitalRead(pinLess);
