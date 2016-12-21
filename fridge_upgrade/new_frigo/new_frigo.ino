@@ -31,7 +31,7 @@ void setup() {
   // put your setup code here, to run once:
   display.begin(16, 2);
   // Print a message to the LCD.
-  display.print("hello, world!");
+  display.print("adventures of the valparaiso");
 }
 
 void loop() {
@@ -39,6 +39,8 @@ void loop() {
   // set the cursor to column 0, line 1
   // (note: line 1 is the second row, since counting begins with 0):
   display.setCursor(0, 1);
+  display.scrollDisplayLeft();
+  delay(150);
   // print the number of seconds since reset:
   display.print(millis() / 1000);
 }
