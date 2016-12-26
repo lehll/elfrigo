@@ -31,7 +31,7 @@ int Plus = 0, Less = 0;
 
 
 void setup() {
-    Serial.begin(9600);      // open the serial port at 9600 bps:    
+  Serial.begin(9600);      // open the serial port at 9600 bps:
 
   // put your setup code here, to run once:
   display.begin(16, 2);
@@ -46,13 +46,6 @@ void loop() {
   display.setCursor(0, 1);
   display.scrollDisplayLeft();
   delay(350);
-
-
-      Serial.println("No more addresses.?n :"+fridge.readCurrentTemp());
-
-  
-
-  
-  
+  fridge.getCurrentVoltage(vPow, r1, r2);
 
 }

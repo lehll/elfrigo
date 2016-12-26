@@ -1,13 +1,10 @@
 #include "FRIDGE.h" //include the declaration for this class
 #include <OneWire.h> //for Thermister
 
-const byte LED_PIN = 13; //use the LED @ Arduino pin 13
 OneWire  ds(2);
 //<<constructor>> setup the LED, make pin 13 an OUTPUT
 FRIDGE::FRIDGE() {
   Serial.begin(9600);
-  // open the serial port at 9600 bps:
-  // Serial.print("Constructor :)");
 }
 
 //<<destructor>>
@@ -30,8 +27,15 @@ float FRIDGE::getCurrentTemp() {
 void FRIDGE::setCurrentTemp(int ct) {
   currentTemp = ct;
 };
-int FRIDGE::getCurrentVoltage() {
-  return currentVoltage;
+int FRIDGE::getCurrentVoltage(float vPow ,float r1, float r2) {
+  float v = (analogRead(2) * vPow) / 1024.0;
+  float v2 = v / (r2 / (r1 + r2));
+  Serial.print("Voltage is :" );
+
+  Serial.print((float)(v2), 1);
+
+
+  return v2;
 };
 void FRIDGE::setCurrentVoltage(int cv) {
   currentVoltage = cv;

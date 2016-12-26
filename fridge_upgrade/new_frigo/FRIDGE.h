@@ -12,12 +12,15 @@ class FRIDGE {
   public:
     FRIDGE();
     ~FRIDGE();
+    //    on/off fridge
     void turnOnFridge();
     void turnOffFridge();
+    //    temperature
     float getCurrentTemp();
     void setCurrentTemp(int ct);
     int readCurrentTemp();
-    int getCurrentVoltage();
+    //    voltage
+    int getCurrentVoltage(float vPow, float r1, float r2);
     void setCurrentVoltage(int cv);
 };
 
