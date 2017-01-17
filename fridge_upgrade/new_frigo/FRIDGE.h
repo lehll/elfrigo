@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+
+
 class FRIDGE {
     //properties
   private:
@@ -16,9 +18,10 @@ class FRIDGE {
     void turnOffFridge();
     float getCurrentTemp();
     void setCurrentTemp(int ct);
-    int readCurrentTemp();
-    int getCurrentVoltage();
+    float readCurrentTemp();
+    float getCurrentVoltage(float v, float r1, float r2);
     void setCurrentVoltage(int cv);
+    void emitSound();
 };
 
 #endif

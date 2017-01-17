@@ -1,5 +1,6 @@
 #include "FRIDGE.h" //include the declaration for this class
 #include <OneWire.h> //for Thermister
+#include "pitches.h"
 
 const byte LED_PIN = 13; //use the LED @ Arduino pin 13
 OneWire  ds(2);
@@ -24,19 +25,23 @@ void FRIDGE::turnOffFridge() {
   Serial.print("Turning off the FRIDGE chao bye :)");
   digitalWrite(3, LOW); //here pin=compres
 };
-float FRIDGE::getCurrentTemp() {
-  return currentTemp;
+
+float FRIDGE::getCurrentVoltage(float vPow , float r1, float r2) {
+  float v = (analogRead(2) * vPow) / 1024.0;
+  float v2 = v / (r2 / (r1 + r2));
+  Serial.print("\n Voltage is :" );
+  Serial.print((float)(v2), 5);
+  return v2;
 };
+
 void FRIDGE::setCurrentTemp(int ct) {
   currentTemp = ct;
 };
-int FRIDGE::getCurrentVoltage() {
-  return currentVoltage;
-};
+
 void FRIDGE::setCurrentVoltage(int cv) {
   currentVoltage = cv;
 };
-int FRIDGE::readCurrentTemp(void) {
+float FRIDGE::readCurrentTemp(void) {
   byte i;
   byte present = 0;
   byte type_s = -1;
@@ -130,3 +135,52 @@ int FRIDGE::readCurrentTemp(void) {
   Serial.println(" Celsius, ");
   return celsius;
 }
+
+void FRIDGE::emitSound() {
+  // notes in the melody:
+  int melody[] = {
+    NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
+  };
+
+  // note durations: 4 = quarter note, 8 = eighth note, etc.:
+  int noteDurations[] = {
+    4, 8, 8, 4, 4, 4, 4, 4
+  };
+
+  // iterate over the notes of the melody:
+  for (int thisNote = 0; thisNote < 8; thisNote++) {
+
+    // to calculate the note duration, take one second
+    // divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    int noteDuration = 1000 / noteDurations[thisNote];
+    tone(11, melody[thisNote], noteDuration);
+    // to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    // stop the tone playing:
+    noTone(11);
+  }
+}
+//New function by Gabo
+boolean superCompressor(float T, int pin, float Tmin, float Tmax, float U0, float U0Lim) {
+  //  If current Temp is less than constant  'Tmin'
+  if (T < Tmin) {
+    //if current voltage is more than constant 'U0Lim'
+    if (U0 > U0Lim) {
+      //turn on frige
+      digitalWrite(pin, HIGH);
+    } else {
+      //turn off
+      digitalWrite(pin, LOW); //here pin=compres
+      //    and buzz
+    }
+  }
+  else {
+    //do not anything
+  }
+}
+
+
+
