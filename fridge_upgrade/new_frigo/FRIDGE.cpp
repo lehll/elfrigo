@@ -34,9 +34,7 @@ float FRIDGE::getCurrentVoltage(float vPow , float r1, float r2) {
 void FRIDGE::setCurrentTemp(int ct) {
   currentTemp = ct;
 };
-<<<<<<< HEAD
 
-=======
 int FRIDGE::getCurrentVoltage(float vPow ,float r1, float r2) {
   float v = (analogRead(2) * vPow) / 1024.0;
   float v2 = v / (r2 / (r1 + r2));
@@ -47,7 +45,7 @@ int FRIDGE::getCurrentVoltage(float vPow ,float r1, float r2) {
 
   return v2;
 };
->>>>>>> d5f94ec27d5216749141a3eab0cfe8f6588ac354
+
 void FRIDGE::setCurrentVoltage(int cv) {
   currentVoltage = cv;
 };

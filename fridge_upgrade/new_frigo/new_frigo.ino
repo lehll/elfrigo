@@ -70,14 +70,11 @@ void loop() {
   display.print(fridge.readCurrentTemp(), 2);
   display.print(" *C");
   display.setCursor(0, 1);
-<<<<<<< HEAD
   display.print(fridge.getCurrentVoltage(vPow, r1, r2), 2);
   display.print(" V");
 }
 
-=======
   display.scrollDisplayLeft();
   delay(350);
   fridge.getCurrentVoltage(vPow, r1, r2);
->>>>>>> d5f94ec27d5216749141a3eab0cfe8f6588ac354
 
