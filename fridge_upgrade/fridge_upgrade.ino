@@ -26,7 +26,7 @@ float U0Lim = 11.4;
 //Variables
 //const int U1=1; //to modify with the good input
 OneWire  ds(2);  // on pin 2 (a 4.7K resistor is necessary)
-const int U0pin = 1;
+const int U0pin = 2;
 const int Tpin = 8;
 const int compres = 3; //... output
 const int pinPlus = 4;
