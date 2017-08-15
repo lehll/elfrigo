@@ -29,7 +29,7 @@ LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
 
 float R1 = 100000.0; // resistance of R1 (100K) -see text!
 float R2 = 33000.0; // resistance of R2 (33K) - see text!
-int temperatureLimit = 10;
+float temperatureLimit = 10.0;
 
 void setup() {
   Serial.begin(9600);
@@ -81,7 +81,7 @@ float getVoltage() {
 
   lcd.setCursor(0, 0);
   lcd.print("V: ");
-  lcd.print(currentVoltage);
+  lcd.print(  String.format("%.02f", currentVoltage));
 
   delay(500);
 
@@ -167,7 +167,7 @@ void attachKeyboard() {
 
   lcd.setCursor(9, 0);           // move to the begining of the second line
 
-  lcd.print("cv= ");
+  lcd.print("c: ");
   lcd.print(temperatureLimit);
   
   lcd_key = read_LCD_buttons();  // read the buttons
