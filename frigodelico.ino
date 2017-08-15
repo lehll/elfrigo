@@ -6,8 +6,8 @@
 #define ANALOG_INPUT  2 // Will be used for voltmeter
 #define ANALOG_OUTPUT 5
 #define ONE_WIRE_BUS 2  // Data wire is plugged into pin 2 on the Arduino 
-OneWire oneWire(ONE_WIRE_BUS); // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs) 
-DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature. 
+OneWire oneWire(ONE_WIRE_BUS); // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature.
 
 
 OneWire  ds(2);  //temp sensor to pin 2
@@ -23,7 +23,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(ANALOG_INPUT, INPUT);
   lcd.begin(16, 2);
-  sensors.begin(); 
+  sensors.begin();
 }
 void loop() {
   float voltage =  getVoltage();
@@ -32,30 +32,30 @@ void loop() {
   if (voltage < 4.0) {
     turnFridgeOff();
     turnAlarmOn();
-    
+
   } else {
     Serial.print ("tem is  ");
     Serial.print (temperature);
-    if (temperature > 10){              // here is the value we would like to set as a variable
+    if (temperature > 10) {             // here is the value we would like to set as a variable
       turnFridgeOn();
-      } else{
-        turnFridgeOff();
-        }
+    } else {
+      turnFridgeOff();
     }
+  }
 
 }
 
 
-void turnFridgeOn(){
+void turnFridgeOn() {
   digitalWrite (13, HIGH); //Relay to pin 13
 }
 
-void turnFridgeOff(){
+void turnFridgeOff() {
   Serial.println ("/n turning fridge off ");
-  digitalWrite (13,LOW);
-  
-  
-  }
+  digitalWrite (13, LOW);
+
+
+}
 
 float getVoltage() {
 
@@ -64,7 +64,7 @@ float getVoltage() {
   float currentVoltage = 0.0;
 
   // read the value at analog input
-  value = analogRead(ANALOG_INPUT); 
+  value = analogRead(ANALOG_INPUT);
   vout = (value * 5.0) / 1024.0; // see text
   currentVoltage = vout / (R2 / (R1 + R2));
 
@@ -109,23 +109,23 @@ void turnAlarmOn() {
 }
 
 float getTemperature() {
-// call sensors.requestTemperatures() to issue a global temperature 
- // request to all devices on the bus 
-/********************************************************************/
-    Serial.print(" Requesting temperatures..."); 
-    sensors.requestTemperatures(); // Send the command to get temperature readings 
-    Serial.println("DONE"); 
-/********************************************************************/
-    lcd.setCursor(0, 1);
-    lcd.print("T: "); 
-    lcd.print(sensors.getTempCByIndex(0));
-    Serial.print("T: ");
-    Serial.print(sensors.getTempCByIndex(0)); // Why "byIndex"?  
-   // You can have more than one DS18B20 on the same bus.  
-   // 0 refers to the first IC on the wire 
-    return sensors.getTempCByIndex(0);
-  
-  }
+  // call sensors.requestTemperatures() to issue a global temperature
+  // request to all devices on the bus
+  /********************************************************************/
+  Serial.print(" Requesting temperatures...");
+  sensors.requestTemperatures(); // Send the command to get temperature readings
+  Serial.println("DONE");
+  /********************************************************************/
+  lcd.setCursor(0, 1);
+  lcd.print("T: ");
+  lcd.print(sensors.getTempCByIndex(0));
+  Serial.print("T: ");
+  Serial.print(sensors.getTempCByIndex(0)); // Why "byIndex"?
+  // You can have more than one DS18B20 on the same bus.
+  // 0 refers to the first IC on the wire
+  return sensors.getTempCByIndex(0);
+
+}
 
 
-  
+
