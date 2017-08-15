@@ -68,6 +68,9 @@ void turnFridgeOff() {
   digitalWrite (13, LOW);
 }
 
+
+}
+
 float getVoltage() {
 
   int value = 0;
@@ -203,6 +206,7 @@ void attachKeyboard() {
   }
 }
 
+}
 
 
 
