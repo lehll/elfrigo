@@ -3,14 +3,14 @@
 #include <OneWire.h> //for Thermister
 #include "pitches.h"
 
-#define ANALOG_INPUT  2
+#define ANALOG_INPUT  2 // Will be used for voltmeter
 #define ANALOG_OUTPUT 5
 #define ONE_WIRE_BUS 2  // Data wire is plugged into pin 2 on the Arduino 
 OneWire oneWire(ONE_WIRE_BUS); // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs) 
 DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature. 
 
 
-OneWire  ds(2);
+OneWire  ds(2);  //temp sensor to pin 2
 
 
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7);
@@ -30,26 +30,27 @@ void loop() {
   float temperature = getTemperature();
 
   if (voltage < 4.0) {
-    turnOnAlarm();
-    turnOffFridge();
+    turnFridgeOff();
+    turnAlarmOn();
+    
   } else {
     Serial.print ("tem is  ");
     Serial.print (temperature);
-    if (temperature > 4){
-      turnOnFridge();
+    if (temperature > 10){              // here is the value we would like to set as a variable
+      turnFridgeOn();
       } else{
-        turnOffFridge();
+        turnFridgeOff();
         }
     }
 
 }
 
 
-void turnOnFridge(){
-  digitalWrite (13, HIGH);
+void turnFridgeOn(){
+  digitalWrite (13, HIGH); //Relay to pin 13
 }
 
-void turnOffFridge(){
+void turnFridgeOff(){
   Serial.println ("/n turning fridge off ");
   digitalWrite (13,LOW);
   
@@ -80,7 +81,7 @@ float getVoltage() {
   return currentVoltage;
 }
 
-void turnOnAlarm() {
+void turnAlarmOn() {
   // notes in the melody:
   int melody[] = {
     NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
